@@ -1,48 +1,78 @@
 <?php require_once '/tools/_db.php'; ?>
-<?php 
+<?php
+if (isset($_POST ['save'])) {
 
+    $query = $db->prepare('INSERT INTO user (firstname, lastname, email, password, bio, is_admin) VALUES (?, ?, ?, ?, ?, ?)');
+    $result = $query->execute(
+        [
+            $_POST['firstname'],
+            $_POST['lastname'],
+            $_POST['email'],
+            $_POST['password'],
+            $_POST['bio'],
+            $_POST['is_admin'],
+
+        ]
+    );
+}
 
 ?>
 
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Admin category</title>
 </head>
 <body>
+<form action="admin.php" method="post">
 
-<div>
+    <div>
+        <label for="firstName">FIRST NAME</label>
+        <input id="firstName" name="firstname" value="" type="text" placeholder="first name"/>
+    </div>
 
-    <label for="firstName">FIRST NAME</label>
-    <input id="firstName" name="firstname" value="" type="text" placeholder="first name"/>
+    <div>
+        <label for="lastName">LASTNAME</label>
+        <input id="lastName" name="lastname" value="" type="text" placeholder="Last name" />
+    </div>
 
-    <label for="lastName">LASTNAME</label>
-    <input id="lastName" name="lastname" value="" type="text" placeholder="Last name" />
+    <div>
+        <label for="Email">EMAIL</label>
+        <input id="email" name="email" value="" type="email" placeholder="Email"/>
+    </div>
 
-    <label for="Email">EMAIL</label>
-    <input id="email" name="email" value="" type="email" placeholder="Email"/>
+    <div>
+        <label for="Password">PASSWORD</label>
+        <input id="password" name="password" value="" type="password" placeholder="Password" />
+    </div>
 
-    <label for="Password">PASSWORD</label>
-    <input id="password" name="password" value="" type="password" placeholder="Password" />
-
-    <textarea name="bio" cols="10" rows="6">
+    <div>
+         <textarea name="bio" cols="10" rows="6">
 
     </textarea>
+    </div>
 
-    <label>FIRST NAME<input type="checkbox" name="is_admin" /></label>
+    <div>
+        <select name="is_admin">
+            <option value="1">oui</option>
+            <option value="0">non</option>
+        </select>
+    </div>
 
-    <input type="submit" name="save" value="Sauvegarder"/>
-</div>
-
-<?php
-
+    <div>
+        <input type="submit" name="save" value="sauvegarder">
+    </div>
 
 
-?>
+
+
+</form>
+
+
+
+
+
 
 </body>
 </html>
